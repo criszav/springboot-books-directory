@@ -34,13 +34,13 @@ public class BookController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> createBook(@RequestBody Book book){
+    public ResponseEntity<?> createBook(@Valid @RequestBody Book book){
         Book newBook = service.save(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(newBook);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> editBook(@RequestBody Book book, @PathVariable Long id){
+    public ResponseEntity<?> editBook(@Valid @RequestBody Book book, @Valid @PathVariable Long id){
         Optional<Book> optBook = service.findById(id);
 
         if (optBook.isPresent()){
