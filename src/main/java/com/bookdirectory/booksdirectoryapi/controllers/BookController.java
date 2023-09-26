@@ -3,7 +3,7 @@ package com.bookdirectory.booksdirectoryapi.controllers;
 import com.bookdirectory.booksdirectoryapi.models.entities.Book;
 import com.bookdirectory.booksdirectoryapi.services.BookService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +13,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
+@RequiredArgsConstructor
 public class BookController {
 
-    @Autowired
-    private BookService service;
+    private final BookService service;
 
     @GetMapping
     public List<Book> listAll(){
@@ -25,12 +25,7 @@ public class BookController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> showBook(@PathVariable Long id){
-        Optional<Book> optBook = service.findById(id);
-
-        if (optBook.isPresent()){
-            return ResponseEntity.ok(optBook.orElseThrow());
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping()

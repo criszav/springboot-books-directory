@@ -2,6 +2,7 @@ package com.bookdirectory.booksdirectoryapi.services;
 
 import com.bookdirectory.booksdirectoryapi.models.entities.Book;
 import com.bookdirectory.booksdirectoryapi.repository.BookRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
-    @Autowired
-    BookRepository repository;
+    private final BookRepository repository;
 
     @Override
     @Transactional(readOnly = true)
